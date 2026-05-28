@@ -124,11 +124,9 @@ button:disabled {
     font-weight: bold;
     font-size: 15px;
 }
-.text-input {
+.num-input {
     box-sizing: border-box;
-    min-width: 50px;
-    max-width: 100px;
-    width: 100%,
+    max-width: 50px;
 }
 
 footer {

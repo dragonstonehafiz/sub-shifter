@@ -23,8 +23,8 @@
                         <input type="file" id="shift-file" accept=".ass,.srt" required>
                     </div>
                     <div class="content-row">
-                        <label>Shift by:</label>
-                        <input class="text-input" type="text" value="-1.0">
+                        <label>Shift by:</label> 
+                        <input class="num-input" id="shift-value" type="text" value="-1.00">
                         <div class="tooltip">?
                             <span class="tooltip-text">Shift all subtitles forward or backward by the specified number of seconds</span>
                         </div>
@@ -56,6 +56,10 @@
             </div>
         </footer>
 
-        <script src="script.js"></script>
+        <script src="scripts/shared.js"></script>
+        <script src="scripts/convert.js"></script>
+        <script src="scripts/srt.js"></script>
+        <script src="scripts/ass.js"></script>
+        <script src="scripts/shift.js"></script>
     </body>
 </html>
