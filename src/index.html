@@ -20,17 +20,17 @@
                     <h3>Shift</h3>
                     <div class="content-row">
                         <label>Upload File:</label>
-                        <input type="file">
+                        <input type="file" id="shift-file" accept=".ass,.srt" required>
                     </div>
                     <div class="content-row">
                         <label>Shift by:</label>
-                        <input class="input-shift-amt" type="text" value="-1.0">
+                        <input class="text-input" type="text" value="-1.0">
                         <div class="tooltip">?
                             <span class="tooltip-text">Shift all subtitles forward or backward by the specified number of seconds</span>
                         </div>
                     </div>
                     <div class="content-row">
-                        <button>Shift</button>
+                        <button id="shift-button" disabled>Shift</button>
                     </div>
                 </div>
 
@@ -38,20 +38,24 @@
                     <h3>Convert</h3>
                     <div class="content-row">
                         <label>Upload File:</label>
-                        <input type="file">
+                        <input type="file" id="convert-file" accept=".ass,.srt" required>
                     </div>
                     <div class="content-row">
-                        <button>Convert</button>
+                        <button id="convert-button" disabled>Convert</button>
                     </div>
                 </div>
             </div>
 
-            
-
         </main>
 
         <footer>
-            <div>This site was created by Muhd Hafiz</div>
+            <div>
+                This site was created to practice basic frontend programming and is a copy of this <a href="https://subshifter.bitsnbites.eu/">site</a>.
+                <br>
+                Source code can be found <a href="https://github.com/dragonstonehafiz/sub-shifter">here</a>.
+            </div>
         </footer>
+
+        <script src="script.js"></script>
     </body>
 </html>
