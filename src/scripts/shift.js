@@ -44,6 +44,7 @@ shiftButton.addEventListener("click", async function() {
         return;
 
     let file = fileInputShift.files[0];
+    let name = file.name.split(".").slice(0, -1).join(".");
     let shiftAmt = parseFloat(inputShiftValue.value);
     let ext = file.name.split(".").pop();
     let text = await file.text();
@@ -51,11 +52,11 @@ shiftButton.addEventListener("click", async function() {
     if (ext === "srt") {
         let subs = readSRTFile(text);
         let outputText = retimeSRTFile(subs, shiftAmt);
-        downloadTextFile(outputText, file.name);
+        downloadTextFile(outputText, `${name}.retimed.srt`);
     }
     else if (ext === "ass") {
         const {header, subs} = readASSFile(text);
         let outputText = retimeASSFile(header, subs, shiftAmt);
-        downloadTextFile(outputText, file.name);
+        downloadTextFile(outputText, `${name}.retimed.ass`);
     }
 })

@@ -67,6 +67,19 @@ class TimingSRT {
         this.mmm = mmm;
     }
 
+    getASSTime() {
+        let totalMs = this.HH * 1000 * 60 * 60 + this.MM * 1000 * 60 + this.SS * 1000 + this.mmm;
+
+        let HH = Math.floor(totalMs / 3600000);
+        totalMs -= (HH * 3600000);
+        let MM = Math.floor(totalMs / 60000);
+        totalMs -= (MM * 60000);
+        let SS = Math.floor(totalMs / 1000); 
+        let cc = Math.floor((totalMs % 1000) / 10);
+
+        return `${HH}:${MM.toString().padStart(2, '0')}:${SS.toString().padStart(2, '0')}.${cc.toString().padStart(2, '0')}`;
+    }
+
     /**
      * @returns {string} Formatted timing string HH:MM:SS,mmm
      */
@@ -127,12 +140,16 @@ function retimeSRTFile(subs, shiftAmt) {
         sub.addTime(shiftAmt);
     }
 
+    return createSRTFile(subs);
+}
+
+function createSRTFile(subs) {
     let output = "";
     for (const sub of subs) {
         output += `${sub.index}\n`;
         output += `${sub.startTime.getString()} --> ${sub.endTime.getString()}\n`;
         output += `${sub.text}\n`;
     }
-
+    
     return output;
 }

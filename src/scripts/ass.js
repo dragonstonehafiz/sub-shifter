@@ -19,8 +19,8 @@ class SubtitleASS {
         effect, text
     ) {
         this.layer = layer;
-        this.startTime = startTime;
-        this.endTime = endTime;
+        this.startTime = new TimingASS(startTime);
+        this.endTime = new TimingASS(endTime);
         this.style = style;
         this.name = name;
         this.marginL = marginL;
@@ -92,14 +92,31 @@ class TimingASS {
         this.cc = cc;
     }
 
+    getSRTTime() {
+        let totalMs = this.HH * 1000 * 60 * 60 + this.MM * 1000 * 60 + this.SS * 1000 + this.cc * 10;;
+
+        let HH = Math.floor(totalMs / 3600000);
+        totalMs -= (HH * 3600000);
+        let MM = Math.floor(totalMs / 60000);
+        totalMs -= (MM * 60000);
+        let SS = Math.floor(totalMs / 1000);
+        let mmm = totalMs % 1000;
+
+        const hh = HH.toString().padStart(2, '0');
+        const mm = MM.toString().padStart(2, '0');
+        const ss = SS.toString().padStart(2, '0');
+        const mmmStr = mmm.toString().padStart(3, '0');
+        return `${hh}:${mm}:${ss},${mmmStr}`;
+    }
+
     /**
      * @returns {string} - Formatted time string HH:MM:SS.CC
      */
     getString() {
         let output = "";
         const hh = this.HH.toString();
-        const mm = this.MM.toString();
-        const ss = this.SS.toString();
+        const mm = this.MM.toString().padStart(2, '0');
+        const ss = this.SS.toString().padStart(2, '0');
         const cc = this.cc.toString().padStart(2, '0');
         return `${hh}:${mm}:${ss}.${cc}`;
     }
@@ -135,7 +152,7 @@ function readASSFile(text) {
             let effect = subData[8];
             let text = subData.slice(9).join(",");
 
-            let sub = new SubtitleASS(layer, new TimingASS(startTime), new TimingASS(endTime), style, name, marginL, marginR, marginV, effect, text);
+            let sub = new SubtitleASS(layer, startTime, endTime, style, name, marginL, marginR, marginV, effect, text);
             subs.push(sub);
         }
         i++;
@@ -157,10 +174,13 @@ function retimeASSFile(header, subs, shiftAmt) {
         sub.addTime(shiftAmt);
     }
 
+    return createASSFile(header, subs);
+}
+
+function createASSFile(header, subs) {
     let output = `${header}\n`;
     for (const sub of subs) {
-        output += `${sub.getString()}\n`;
+        output += `Dialogue: ${sub.getString()}\n`;
     }
-
     return output;
 }
