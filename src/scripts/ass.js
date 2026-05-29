@@ -92,6 +92,9 @@ class TimingASS {
         this.cc = cc;
     }
 
+    /**
+     * @returns {string} Formatted timing string in SRT format HH:MM:SS,mmm
+     */
     getSRTTime() {
         let totalMs = this.HH * 1000 * 60 * 60 + this.MM * 1000 * 60 + this.SS * 1000 + this.cc * 10;;
 
@@ -177,6 +180,12 @@ function retimeASSFile(header, subs, shiftAmt) {
     return createASSFile(header, subs);
 }
 
+/**
+ * Format header and subtitles as ASS file content
+ * @param {string} header - ASS file header
+ * @param {SubtitleASS[]} subs - Array of subtitle entries
+ * @returns {string} Formatted ASS file content
+ */
 function createASSFile(header, subs) {
     let output = `${header}\n`;
     for (const sub of subs) {

@@ -67,6 +67,9 @@ class TimingSRT {
         this.mmm = mmm;
     }
 
+    /**
+     * @returns {string} Formatted timing string in ASS format HH:MM:SS.CC
+     */
     getASSTime() {
         let totalMs = this.HH * 1000 * 60 * 60 + this.MM * 1000 * 60 + this.SS * 1000 + this.mmm;
 
@@ -74,7 +77,7 @@ class TimingSRT {
         totalMs -= (HH * 3600000);
         let MM = Math.floor(totalMs / 60000);
         totalMs -= (MM * 60000);
-        let SS = Math.floor(totalMs / 1000); 
+        let SS = Math.floor(totalMs / 1000);
         let cc = Math.floor((totalMs % 1000) / 10);
 
         return `${HH}:${MM.toString().padStart(2, '0')}:${SS.toString().padStart(2, '0')}.${cc.toString().padStart(2, '0')}`;
@@ -143,6 +146,11 @@ function retimeSRTFile(subs, shiftAmt) {
     return createSRTFile(subs);
 }
 
+/**
+ * Format subtitles as SRT file content
+ * @param {SubtitleSRT[]} subs - Array of subtitles to format
+ * @returns {string} Formatted SRT file content
+ */
 function createSRTFile(subs) {
     let output = "";
     for (const sub of subs) {
@@ -150,6 +158,6 @@ function createSRTFile(subs) {
         output += `${sub.startTime.getString()} --> ${sub.endTime.getString()}\n`;
         output += `${sub.text}\n`;
     }
-    
+
     return output;
 }

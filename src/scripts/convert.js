@@ -51,6 +51,11 @@ Style: Default,BIZ UDPGothic,45,&H00FFFFFF,&H000000FF,&H00000000,&H00000000,0,0,
 Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
 `
 
+/**
+ * Convert SRT subtitles to ASS format
+ * @param {SubtitleSRT[]} subs - Array of SRT subtitles
+ * @returns {string} Formatted ASS file content
+ */
 function convertFromSRTToASS(subs) {
     let ass_subs = [];
     for (const sub of subs) {
@@ -72,9 +77,14 @@ function convertFromSRTToASS(subs) {
     return createASSFile(ASS_HEADER, ass_subs);
 }
 
+/**
+ * Convert ASS subtitles to SRT format
+ * @param {SubtitleASS[]} subs - Array of ASS subtitles
+ * @returns {string} Formatted SRT file content
+ */
 function convertFromASSToSRT(subs) {
     let srt_subs = [];
-    let i = 0; 
+    let i = 0;
     for (const sub of subs) {
         let index = i++;
         let startTime = sub.startTime.getSRTTime();
