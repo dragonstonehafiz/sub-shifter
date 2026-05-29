@@ -50,12 +50,12 @@ shiftButton.addEventListener("click", async function() {
 
     if (ext === "srt") {
         let subs = readSRTFile(text);
-        let outputText = retimeSRT(subs, shiftAmt)
-
+        let outputText = retimeSRTFile(subs, shiftAmt);
         downloadTextFile(outputText, file.name);
     }
     else if (ext === "ass") {
-        console.log("TODO");
+        const {header, subs} = readASSFile(text);
+        let outputText = retimeASSFile(header, subs, shiftAmt);
+        downloadTextFile(outputText, file.name);
     }
-
 })

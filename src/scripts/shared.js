@@ -7,7 +7,7 @@ function isFileValid(file) {
     if (!file)
         return false;
     let ext = file.name.split(".").pop();
-    if (ext !== "srt")
+    if (ext !== "srt" && ext !== "ass")
         return false;
     return true;
 }

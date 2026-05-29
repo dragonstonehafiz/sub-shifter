@@ -122,7 +122,7 @@ function readSRTFile(text) {
  * @param {number} shiftAmt - Time shift in seconds
  * @returns {string} Formatted SRT file content
  */
-function retimeSRT(subs, shiftAmt) {
+function retimeSRTFile(subs, shiftAmt) {
     for (const sub of subs) {
         sub.addTime(shiftAmt);
     }
